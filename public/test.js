@@ -24,11 +24,33 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
 const foodQRef = collection(db, 'foodQuestions');
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async () => { //Looks through database once the page is loaded
 
-let questionID = 1;
+let questionID = document.getElementById('questionID').value;
 
-let foodquestion = await getQuestionFromFirestore(questionID);
+const englishCheckbox = document.getElementById('english');
+const spanishCheckbox = document.getElementById('spanish');
+const outputTextarea = document.getElementById('output');
+
+englishCheckbox.addEventListener('change', async () => {
+  if (englishCheckbox.checked) {
+      let foodquestion = await getQuestionFromFirestore(questionID);
+      const question = foodquestion.englishQuestion;
+      outputTextarea.value = question;
+  } else {
+      outputTextarea.value = '';
+  }
+});
+
+spanishCheckbox.addEventListener('change', async () => {
+  if (spanishCheckbox.checked) {
+      let foodquestion = await getQuestionFromFirestore(questionID);
+      const question = foodquestion.spanishQuestion;
+      outputTextarea.value = question;
+  } else {
+      outputTextarea.value = '';
+  }
+});
 
 console.log(foodquestion.englishQuestion);
 console.log(foodquestion.spanishQuestion);
@@ -50,6 +72,29 @@ const questionConverter = {
       return new Question(data.questionID, data.lang_en, data.lang_es);
   }
 }
+
+
+class Lobby{
+  constructor(lobbyID, hostID, currentPlayers)
+  {
+    this._lobbyID = lobbyID;
+    this._hostID = hostID;
+    this._currentPlayers = currentPlayers;
+  }
+
+  get lobbyID(){
+    return this._lobbyID;
+  }
+
+  get hostID(){
+    return this._hostID;
+  }
+
+  get currentPlayers(){
+    return this._currentPlayers;
+  }
+}
+
 
 class Question {
   constructor(questionID, lang_en, lang_es) {
