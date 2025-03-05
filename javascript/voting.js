@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentPlayerInput = document.getElementById('currentPlayer');
     const playerOptions = document.getElementById('playerOptions');
 
-    // Example player data
-    const players = [
+    // Retrieve player data from local storage
+    const players = JSON.parse(localStorage.getItem('players')) || [
         { id: 1, name: 'Player 1', votes: 0 },
         { id: 2, name: 'Player 2', votes: 0 },
         { id: 3, name: 'Player 3', votes: 0 },
@@ -23,10 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
         input.type = 'radio';
         input.name = 'player';
         input.value = player.name;
+        const span = document.createElement('span');
+        span.textContent = player.name;
         label.appendChild(input);
-        label.appendChild(document.createTextNode(player.name));
+        label.appendChild(span);
         playerOptions.appendChild(label);
-        playerOptions.appendChild(document.createElement('br'));
     });
 
     votingForm.addEventListener('submit', (event) => {
@@ -62,6 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Clear the selected radio button
             selectedPlayer.checked = false;
+
+            // Save updated player data back to local storage
+            localStorage.setItem('players', JSON.stringify(players));
         } else {
             result.textContent = 'Please select a player to vote for.';
         }

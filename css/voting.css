@@ -29,12 +29,14 @@ input[type="radio"] + span {
     background-color: white;
     color: #4CAF50;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 input[type="radio"]:checked + span {
     background-color: #4CAF50;
     color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 button {
