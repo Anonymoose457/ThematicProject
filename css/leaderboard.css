@@ -1,0 +1,58 @@
+body{
+    margin:0;
+    background: blue;
+
+}
+
+.leaderboard-container{
+    display: grid;
+    align-items: center;
+    width: 50%;
+    grid-template-rows: minmax(50px,1fr);
+    grid-gap: 10px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.leaderboard{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: white;
+
+    padding: 0 15px;
+    border-radius: 15px;
+    height: 50px;
+}
+
+.position-text{
+    font-size: 25px;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.points-text{
+    margin-right: 10px;
+
+}
+
+#next-btn{
+    margin: 0 auto;
+    margin-top: 15px;
+
+    display: block;
+
+    width: 100px;
+    height: 30px;
+}
+
+#leaderboard-label{
+    position: relative;
+    top: 30px;
+
+    text-align: center;
+}
