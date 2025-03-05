@@ -27,7 +27,7 @@ body{
     border: 0.8px solid black;
 }
 
-.category1{background-color: #118ed6;}
+.category1{background-color: #118ed6}
 .category2{background-color: #118ed6;}
 .category3{background-color: #118ed6;}
 .category4{background-color: #118ed6;}
@@ -35,3 +35,6 @@ body{
 .category:hover{
     color:#cfc6cd;
 }
+
+
+ 

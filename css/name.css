@@ -1,0 +1,109 @@
+body{
+    margin: 0;
+    background-color:#118ed6 ;
+}
+
+@font-face {
+    font-family: Darumadrop;
+    src: url(/ThematicProject/fonts/DarumadropOne-Regular.ttf);
+}
+
+#form-container{
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+/*WHERE NAMES WILL BE DISPLAYED*/
+#names-container{
+    display: grid;
+    min-height: 1fr;
+
+    grid-template-columns: repeat(4, minmax(100px,1fr));
+    margin-top: 10px;
+
+}
+
+.placeholder{
+    display: grid;
+    place-content: center;
+    padding: 20px;
+    font-family: Darumadrop;
+}
+
+#placeholder1{visibility: hidden;}
+#placeholder2{visibility: hidden;}
+#placeholder3{visibility: hidden;}
+#placeholder4{visibility: hidden;}
+#placeholder5{visibility: hidden;}
+#placeholder6{visibility: hidden;}
+#placeholder7{visibility: hidden;}
+#placeholder8{visibility: hidden;}
+
+
+#name-label{
+    font-family: Darumadrop;
+    font-size: 60px;
+    color: white;
+}
+
+.name-input{
+    display: flex;
+    justify-content: center;
+
+    position: relative;
+    left: 100px;
+    right: 100px;
+    margin: 20px 0;
+
+    border: none;
+    border-radius: 5px;
+    width: 500px;
+    height: 80px;
+}
+
+.name-input::placeholder{
+    font-family: Darumadrop;
+    font-size: 25px;
+}
+
+input[type="text"]{
+    font-size: 25px;
+    font-family: Darumadrop;
+}
+
+#name-btn{
+    text-align: center;
+    font-size:15px;
+
+    position: relative;    
+    left: 250px;
+
+    width: 200px;
+    height: 50px;
+    
+    margin-top: 15px;
+
+    border: 5px white solid;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+#play-btn{
+    text-align: center;
+    font-size:15px;
+
+    position: relative;
+    left: 43%;
+
+    width: 200px;
+    height: 50px;
+
+
+    border: 5px white solid;
+    border-radius: 10px;
+
+
+    cursor: pointer;
+}
