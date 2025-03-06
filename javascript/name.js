@@ -32,9 +32,9 @@ document.addEventListener("DOMContentLoaded", function() {
     
                     playersNum++;
                     updated = true;
-                }
-            userName.value = "";            
+                }           
         });
+        userName.value = "";  
     });    
     document.getElementById("play-btn").addEventListener("click", numOfPlayers);
 
