@@ -1,0 +1,222 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    color: white;
+}
+
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee, #fbc2eb, #ff9a9e);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+h1 {
+    font-size: 6rem;
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.title-image {
+    width: 800px; 
+    height: auto; 
+}
+
+.button1{
+    margin-top: 90px;
+}
+
+.button1 button{
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    color: white;
+    padding: 20px 50px;
+    margin: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.button2 button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    color: white;
+    padding: 20px 63px;
+    margin: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.button1 button:hover, .button2 button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Settings Icon */
+.menu-icon {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 1000;
+    width: 50px; 
+    height: 50px; 
+    transition: transform 0.3s ease;
+}
+
+.menu-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+.menu-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Menu Overlay */
+.menu-column {
+    position: fixed;
+    top: 0;
+    left: -400px; 
+    width: 300px;
+    height: 100%;
+    background: rgba(51, 51, 51, 0.95);
+    color: white;
+    z-index: 999;
+    transition: left 0.5s ease;
+    padding: 20px;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.menu-column.active {
+    left: 0; 
+}
+
+.menu-column h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px; 
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.menu-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-column ul li {
+    margin: 40px 0; 
+}
+
+.menu-column ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: bold; 
+    text-transform: uppercase; 
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+    display: block; 
+}
+
+.menu-column ul li a:hover {
+    color: #ff9a9e; 
+}
+
+/* Submenu Overlay */
+.submenu-column {
+    position: fixed;
+    top: 0;
+    left: -400px; 
+    width: 300px;
+    height: 100%;
+    background: rgba(51, 51, 51, 0.95);
+    color: white;
+    z-index: 1000;
+    transition: left 0.5s ease;
+    padding: 20px;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.submenu-column.active {
+    left: 0;
+}
+
+.submenu-column h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.submenu-column p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.submenu-column button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.submenu-column button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
