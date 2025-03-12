@@ -30,26 +30,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     const questionDisplay = document.getElementById('questionDisplay');
     const nextButton = document.getElementById('nextButton');
 
-    // Retrieve names and questions from local storage
     const names = JSON.parse(localStorage.getItem('names')) || ['Alice', 'Bob', 'Charlie', 'David'];
 
 
     let currentIndex = 0;
-    const totalQuestions = questions.length;
     const totalNames = names.length;
 
     async function updateContent() {
         if (currentIndex >= totalNames) {
             nameDisplay.textContent = 'EVERYONE ASKED';
-            let foodquestion = await getQuestionFromFirestore(1);
-            const question = foodquestion.spanishQuestion + " \n" + foodquestion.englishQuestion;   
+            const question = "";
             questionDisplay.textContent = question; 
             nextButton.disabled = true;
             return;
         }
 
+        function getRandomInt(min, max) {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
         const asker = names[currentIndex];
         const askee = names[(currentIndex + 1) % totalNames];
+        const questionID = getRandomInt(1,7);
+        let foodquestion = await getQuestionFromFirestore(questionID);
+        const question = foodquestion.spanishQuestion + " \n" + foodquestion.englishQuestion;   
+        questionDisplay.textContent = question;
         nameDisplay.textContent = `${asker} ask ${askee}`;
         }
 
