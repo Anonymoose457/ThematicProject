@@ -12,7 +12,9 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const userName = document.getElementById("name-input");
     const nameArray = [name1,name2,name3,name4,name5,name6,name7,name8];
-
+    
+    //Array in local storage
+    let playerNames = JSON.parse(localStorage.getItem("playerNames")) || [];
     let playersNum = 0;
 
     nameForm.addEventListener("submit", function(e){
@@ -29,9 +31,13 @@ document.addEventListener("DOMContentLoaded", function() {
             if(updated !== true && name.textContent === "placeholder"){
                     name.textContent = userName.value;
                     name.style.visibility= "visible";
-    
+
                     playersNum++;
                     updated = true;
+
+                    //User input will be pushed into array, which is then stored into local storage.
+                    playerNames.push(userName.value);
+                    localStorage.setItem("playerNames", JSON.stringify(playerNames));
                 }           
         });
         userName.value = "";  
@@ -47,6 +53,8 @@ document.addEventListener("DOMContentLoaded", function() {
             window.location.href='categories.html';
         }
     }
+
+    
 });
 
 
