@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const userName = document.getElementById("name-input");
     const nameArray = [name1,name2,name3,name4,name5,name6,name7,name8];
     
+    const error = document.getElementById("error-container");
+    const errorMsg = document.getElementById("error-msg");
+
     //Array in local storage
     let playerNames = JSON.parse(localStorage.getItem("playerNames")) || [];
     let playersNum = 0;
@@ -22,10 +25,18 @@ document.addEventListener("DOMContentLoaded", function() {
         e.preventDefault();
 
         //Name length validation check as long names will overflow onto the adjacent div
-        if(userName.value.length > 16){ 
-                alert("Name must be shorter than 16 characters.");
-                return;
-            }
+        if(userName.value.length > 16 || userName.value == ""){ 
+            error.style.visibility = "visible";
+            error.style.position = "static";
+
+            errorMsg.textContent = "Name must be shorter than 16 characters!";
+            userName.textContent = "";
+            return;
+        }
+        else{
+            error.style.visibility = "hidden";
+            error.style.position = "absolute";
+        }
 
         nameArray.forEach((name) => {
             if(updated !== true && name.textContent === "placeholder"){
@@ -47,10 +58,14 @@ document.addEventListener("DOMContentLoaded", function() {
     //Number of players validation check
     function numOfPlayers(){
         if(playersNum < 3){
-            alert("Player number is inefficient to start the game.")
+            error.style.visibility = "visible";
+            error.style.position = "static";
+
+            errorMsg.textContent = "Player number is insufficient to start the game.";
+            userName.textContent = "";
         }
         else{
-            window.location.href='categories.html';
+            window.location.href='main.html';
         }
     }
 
