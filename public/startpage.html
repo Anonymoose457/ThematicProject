@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="./css/startpage.css" />
+    <link rel="stylesheet" href="./css/menu.css" /> 
 </head>
 <body>
     <div class="background"></div>
@@ -15,57 +16,16 @@
         </div>
     </div>
 
-    <!-- Settings Icon -->
-    <div class="menu-icon" onclick="toggleMenu()">
-        <img class="settings-image" src="./images/sticon1.png" alt="SI">
-    </div>
+    <!-- Placeholder for the menu -->
+    <div id="menuContainer"></div>
 
-    <!-- Main Menu Overlay -->
-    <div class="menu-column" id="menuColumn">
-        <h2>MENU</h2>
-        <ul>
-
-
-
-            <li><a href="#" onclick="showSubMenu('howToPlay')">How to play ?</a></li>
-            <li><a href="#" onclick="showSubMenu('language')">Language</a></li>
-            <li><a href="#" onclick="showSubMenu('newGame')">New Game</a></li>
-            <li><a href="#" onclick="showSubMenu('soundOff')">Sound Off</a></li>
-            <li><a href="#" onclick="showSubMenu('privacyPage')">Privacy Page</a></li>
-        </ul>
-    </div>
-
-    <!-- Submenu Overlays -->
-    <div class="submenu-column" id="howToPlay">
-        <h2>How to Play</h2>
-        <p>Instructions on how to play the game will appear here.</p>
-        <button onclick="closeSubMenu()">Back</button>
-    </div>
-
-    <div class="submenu-column" id="language">
-        <h2>Language</h2>
-        <p>Select your preferred language.</p>
-        <button onclick="closeSubMenu()">Back</button>
-    </div>
-
-    <div class="submenu-column" id="newGame">
-        <h2>New Game</h2>
-        <p>Start a new game.</p>
-        <button onclick="closeSubMenu()">Back</button>
-    </div>
-
-    <div class="submenu-column" id="soundOff">
-        <h2>Sound Off</h2>
-        <p>Toggle sound on or off.</p>
-        <button onclick="closeSubMenu()">Back</button>
-    </div>
-
-    <div class="submenu-column" id="privacyPage">
-        <h2>Privacy Page</h2>
-        <p>Read our privacy policy.</p>
-        <button onclick="closeSubMenu()">Back</button>
-    </div>
+    <script>
+        fetch("menu.html")
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("menuContainer").innerHTML = html;
+            });
+    </script>
 
     <script src="./javascript/menu.js"></script>
 </body>
-</html>
