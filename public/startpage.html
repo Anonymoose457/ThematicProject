@@ -14,9 +14,8 @@
         
     </div>
 
-    <!-- Placeholder for the menu -->
+   <!-- Menu -->
     <div id="menuContainer"></div>
-
     <script>
         fetch("menu.html")
             .then(response => response.text())
@@ -24,6 +23,5 @@
                 document.getElementById("menuContainer").innerHTML = html;
             });
     </script>
-
     <script src="./javascript/menu.js"></script>
 </body>

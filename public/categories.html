@@ -5,6 +5,8 @@
     <title>Categories</title>
     <link rel="stylesheet" href="./css/categories.css">
     <link rel="stylesheet" href="./css/background.css">
+    <link rel="stylesheet" href="./css/menu.css">
+
 </head>
 <body>
 
@@ -27,5 +29,18 @@
     </div>
 
 </div>
+
+
+<!-- Menu -->
+<div id="menuContainer"></div>
+<script>
+    fetch("menu.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("menuContainer").innerHTML = html;
+        });
+</script>
+<script src="./javascript/menu.js"></script>
+
 </body>
 </html>

@@ -5,6 +5,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="/ThematicProject/css/leaderboard.css">
     <link rel="stylesheet" href="/ThematicProject/css/background.css">
+    <link rel="stylesheet" href="./css/menu.css">
 
 
     <script src="voting.js"></script>
@@ -58,6 +59,17 @@
         <button onclick="window.location.href='test.html';" id="next-btn">Next</button>
     </div>
 </div>
+
+<!-- Menu -->
+<div id="menuContainer"></div>
+<script>
+    fetch("menu.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("menuContainer").innerHTML = html;
+        });
+</script>
+<script src="./javascript/menu.js"></script>
 
 </body>
 </html>
