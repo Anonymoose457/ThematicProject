@@ -6,12 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Retrieve player data from local storage
     const players = JSON.parse(localStorage.getItem('players')) || [
-        { id: 1, name: 'Player 1', votes: 0 },
-        { id: 2, name: 'Player 2', votes: 0 },
-        { id: 3, name: 'Player 3', votes: 0 },
-        { id: 4, name: 'Player 4', votes: 0 },
-        { id: 5, name: 'Player 5', votes: 0 },
-        { id: 6, name: 'Player 6', votes: 0 }
+        { id: 1, name: 'Player 1', votes: 0, oddOneOut: false },
+        { id: 2, name: 'Player 2', votes: 0, oddOneOut: false },
+        { id: 3, name: 'Player 3', votes: 0, oddOneOut: false },
+        { id: 4, name: 'Player 4', votes: 0, oddOneOut: false },
+        { id: 5, name: 'Player 5', votes: 0, oddOneOut: false },
+        { id: 6, name: 'Player 6', votes: 0, oddOneOut: true }
     ];
 
     const totalPlayers = players.length;

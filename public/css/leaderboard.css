@@ -2,40 +2,30 @@ body{
     margin:0;
 }
 
-.leaderboard-container{
-    display: grid;
+.leaderboard-container {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    width: 50%;
-    grid-template-rows: minmax(50px,1fr);
-    grid-gap: 10px;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-top: 20px;
 }
-
-.leaderboard{
+.leaderboard {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-
-    background: white;
-
-    padding: 0 15px;
-    border-radius: 15px;
-    height: 50px;
+    width: 80%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
-.position-text{
-    font-size: 25px;
-    margin-left: 5px;
-    display: inline-block;
+.position-text {
+    font-weight: bold;
 }
 
-.points-text{
-    margin-right: 10px;
 
+.points-text {
+    color: #555;
 }
 
 #next-btn{
