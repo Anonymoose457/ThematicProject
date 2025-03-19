@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 result.textContent += `. All players have voted.`;
                 votingForm.querySelector('button[type="submit"]').disabled = true;
+                //change page to leaderboard 
+                window.location.href = '/leaderboard';
 
                 // Determine the player with the most votes
                 const oddOneOut = players.reduce((prev, current) => (prev.votes > current.votes) ? prev : current);
