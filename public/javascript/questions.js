@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function updateContent() {
         if (currentIndex >= totalNames) {
+            window.location.href = '/voting.html';
             nameDisplay.textContent = 'EVERYONE ASKED';
             const question = "";
             questionDisplay.textContent = question; 
@@ -55,8 +56,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const askee = names[(currentIndex + 1) % totalNames];
         const questionID = getRandomInt(1,7);
         let foodquestion = await getQuestionFromFirestore(questionID);
-        const question = foodquestion.spanishQuestion + " \n" + foodquestion.englishQuestion;   
-        questionDisplay.textContent = question;
+        if(localStorage.getItem('lang') == 'spanish'){
+          const question = foodquestion.spanishQuestion;
+          questionDisplay.textContent = question;
+        } else {
+          const question = foodquestion.englishQuestion;
+          questionDisplay.textContent = question;
+        }
         nameDisplay.textContent = `${asker} ask ${askee}`;
         }
 
