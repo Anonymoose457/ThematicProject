@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/background.css">
     <link rel="stylesheet" href="./css/name.css">
+    <link rel="stylesheet" href="./css/menu.css">
     <script src="./javascript/name.js"></script>
     <title>Who will be playing today?</title>
 </head>
@@ -38,6 +39,17 @@
 
 
     
+
+    <!-- Menu -->
+    <div id="menuContainer"></div>
+    <script>
+        fetch("menu.html")
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("menuContainer").innerHTML = html;
+            });
+    </script>
+    <script src="./javascript/menu.js"></script>
 
 </body>
 </html>
