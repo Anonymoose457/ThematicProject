@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //Name length validation check as long names will overflow onto the adjacent div
         if(userName.value.length > 16 || userName.value == ""){ 
             error.style.visibility = "visible";
-            error.style.position = "static";
+
 
             errorMsg.textContent = "Name must be shorter than 16 characters!";
             userName.textContent = "";
@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         else{
             error.style.visibility = "hidden";
-            error.style.position = "absolute";
         }
 
         nameArray.forEach((name) => {
@@ -59,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function() {
     function numOfPlayers(){
         if(playersNum < 3){
             error.style.visibility = "visible";
-            error.style.position = "static";
 
             errorMsg.textContent = "Player number is insufficient to start the game.";
             userName.textContent = "";
