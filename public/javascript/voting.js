@@ -4,27 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentPlayerInput = document.getElementById('currentPlayer');
     const playerOptions = document.getElementById('playerOptions');
 
-    // Retrieve player data from local storage or initialize it
-    const players = JSON.parse(localStorage.getItem('players')) || [
-        { id: 1, name: 'Player 1', votes: 0, oddOneOut: false },
-        { id: 2, name: 'Player 2', votes: 0, oddOneOut: false },
-        { id: 3, name: 'Player 3', votes: 0, oddOneOut: false },
-        { id: 4, name: 'Player 4', votes: 0, oddOneOut: false },
-        { id: 5, name: 'Player 5', votes: 0, oddOneOut: false },
-        { id: 6, name: 'Player 6', votes: 0, oddOneOut: true }
-    ];
+    // Retrieve player names from localStorage
+    const playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
 
-    const totalPlayers = players.length;
+    // Initialize voteCount based on playerNames
+    const voteCount = JSON.parse(localStorage.getItem('voteCount')) || playerNames.map(name => ({
+        name: name,
+        votes: 0
+    }));
+
+    const totalPlayers = playerNames.length;
 
     // Dynamically generate player voting options
-    players.forEach(player => {
+    playerNames.forEach(playerName => {
         const label = document.createElement('label');
         const input = document.createElement('input');
         input.type = 'radio';
         input.name = 'player';
-        input.value = player.name;
+        input.value = playerName;
         const span = document.createElement('span');
-        span.textContent = player.name;
+        span.textContent = playerName;
         label.appendChild(input);
         label.appendChild(span);
         playerOptions.appendChild(label);
@@ -36,28 +35,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedPlayer = document.querySelector('input[name="player"]:checked');
         if (selectedPlayer) {
             const currentPlayer = parseInt(currentPlayerInput.value);
-            if (selectedPlayer.value === `Player ${currentPlayer}`) {
+            if (selectedPlayer.value === playerNames[currentPlayer - 1]) {
                 result.textContent = 'You cannot vote for yourself. Please select another player.';
                 return;
             }
 
-            result.textContent = `Player ${currentPlayer} voted for ${selectedPlayer.value}`;
+            result.textContent = `${playerNames[currentPlayer - 1]} voted for ${selectedPlayer.value}`;
 
             // Update the votes for the selected player
-            const votedPlayer = players.find(player => player.name === selectedPlayer.value);
+            const votedPlayer = voteCount.find(player => player.name === selectedPlayer.value);
             if (votedPlayer) {
                 votedPlayer.votes += 1;
             }
 
             if (currentPlayer < totalPlayers) {
                 currentPlayerInput.value = currentPlayer + 1;
-                result.textContent += `. Next is Player ${currentPlayer + 1}`;
+                result.textContent += `. Next is ${playerNames[currentPlayer]}`;
             } else {
                 result.textContent += `. All players have voted.`;
                 votingForm.querySelector('button[type="submit"]').disabled = true;
 
-                // Save updated player data back to local storage
-                localStorage.setItem('players', JSON.stringify(players));
+                // Save updated voteCount back to localStorage
+                localStorage.setItem('voteCount', JSON.stringify(voteCount));
 
                 // Redirect to leaderboard
                 window.location.href = '/leaderboard.html';

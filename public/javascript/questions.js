@@ -1,13 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
-import { getFirestore, collection, addDoc, getDocs, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCalEYFS7-ROFSBgkdipILYTMPfesCkx1A",
   authDomain: "oddoneout-98e8e.firebaseapp.com",
@@ -30,8 +26,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const questionDisplay = document.getElementById('questionDisplay');
     const nextButton = document.getElementById('nextButton');
 
-    const names = JSON.parse(localStorage.getItem('names')) || ['Alice', 'Bob', 'Charlie', 'David'];
-
+    // Retrieve player names from localStorage
+    const names = JSON.parse(localStorage.getItem('playerNames')) || [];
 
     let currentIndex = 0;
     const totalNames = names.length;
@@ -47,24 +43,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         function getRandomInt(min, max) {
-          min = Math.ceil(min);
-          max = Math.floor(max);
-          return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
 
         const asker = names[currentIndex];
         const askee = names[(currentIndex + 1) % totalNames];
-        const questionID = getRandomInt(1,7);
+        const questionID = getRandomInt(1, 7);
         let foodquestion = await getQuestionFromFirestore(questionID);
-        if(localStorage.getItem('lang') == 'spanish'){
-          const question = foodquestion.spanishQuestion;
-          questionDisplay.textContent = question;
+
+        if (localStorage.getItem('lang') === 'spanish') {
+            const question = foodquestion.spanishQuestion;
+            questionDisplay.textContent = question;
         } else {
-          const question = foodquestion.englishQuestion;
-          questionDisplay.textContent = question;
+            const question = foodquestion.englishQuestion;
+            questionDisplay.textContent = question;
         }
+
         nameDisplay.textContent = `${asker} ask ${askee}`;
-        }
+    }
 
     nextButton.addEventListener('click', () => {
         currentIndex++;
@@ -72,48 +70,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     updateContent();
-
-
-
-
 });
 
 class Question {
     constructor(questionID, lang_en, lang_es) {
-      this._questionID = questionID;
-      this._lang_en = lang_en;
-      this._lang_es = lang_es;
+        this._questionID = questionID;
+        this._lang_en = lang_en;
+        this._lang_es = lang_es;
     }
-  
-    get englishQuestion() {
-      return this._lang_en;
-    }
-  
-    get spanishQuestion() {
-      return this._lang_es;
-    }
-  
-    get questionID() {
-      return this._questionID;
-    }
-  }
 
-  const getQuestionFromFirestore = async (questionID) => {
+    get englishQuestion() {
+        return this._lang_en;
+    }
+
+    get spanishQuestion() {
+        return this._lang_es;
+    }
+
+    get questionID() {
+        return this._questionID;
+    }
+}
+
+const getQuestionFromFirestore = async (questionID) => {
     let returnQuestion = null;
     const querySnapshot = await getDocs(foodQRef);
     querySnapshot.forEach((doc) => {
-        if (doc.data().questionID == questionID) { //Check the question ID in the database matches the question ID queried 
+        if (doc.data().questionID == questionID) { // Check the question ID in the database matches the question ID queried 
             returnQuestion = questionConverter.fromFirestore(doc);
         }
     });
     return returnQuestion;
-  }
-  
-  const questionConverter = {
+};
+
+const questionConverter = {
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
         return new Question(data.questionID, data.lang_en, data.lang_es);
     }
-  }
-
-  
+};
