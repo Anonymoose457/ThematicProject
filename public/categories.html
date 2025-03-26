@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,41 +7,44 @@
     <link rel="stylesheet" href="./css/categories.css">
     <link rel="stylesheet" href="./css/background.css">
     <link rel="stylesheet" href="./css/menu.css">
-
+    <script src="./javascript/categories.js" defer></script>
 </head>
 <body>
-
-    <div  id="category-container">
-        <a class="category category1" href=""><div>
-            <h1 id="category1-title">FOODS</h1></div>
+    <div id="category-container">
+        <a class="category category1" href="">
+            <div>
+                <h1 id="category1-title">FOODS</h1>
+            </div>
         </a>
 
-        <a class="category category2" href=""><div>
-            <h1 id="category2   -title">LOCATIONS</h1></div>
+        <a class="category category2" href="">
+            <div>
+                <h1 id="category2-title">LOCATIONS</h1>
+            </div>
         </a>
 
-        <a class="category category3" href=""><div>
-            <h1 id="category3-title">ANIMALS</h1></div>
+        <a class="category category3" href="">
+            <div>
+                <h1 id="category3-title">ANIMALS</h1>
+            </div>
         </a>
 
-        <a class="category category4" href=""><div>
-            <h1 id="category4-title">JOBS</h1></div>
+        <a class="category category4" href="">
+            <div>
+                <h1 id="category4-title">JOBS</h1>
+            </div>
         </a>
     </div>
 
-</div>
-
-
-<!-- Menu -->
-<div id="menuContainer"></div>
-<script>
-    fetch("menu.html")
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("menuContainer").innerHTML = html;
-        });
-</script>
-<script src="./javascript/menu.js"></script>
-
+    <!-- Menu -->
+    <div id="menuContainer"></div>
+    <script>
+        fetch("menu.html")
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("menuContainer").innerHTML = html;
+            });
+    </script>
+    <script src="./javascript/menu.js"></script>
 </body>
 </html>
