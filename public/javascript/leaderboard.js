@@ -2,7 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const leaderboardContainer = document.querySelector('.leaderboard-container');
 
     // Retrieve player data from localStorage
-    const players = JSON.parse(localStorage.getItem('players'));
+    let players = JSON.parse(localStorage.getItem('players'));
+
+    // Check if players exist in localStorage
+    if (!players) {
+        console.error('No players found in localStorage.');
+        leaderboardContainer.innerHTML = '<p>No players found. Please complete the voting first.</p>';
+        return;
+    }
 
     // Sort players by votes in descending order
     players.sort((a, b) => b.votes - a.votes);

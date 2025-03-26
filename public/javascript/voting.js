@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentPlayerInput = document.getElementById('currentPlayer');
     const playerOptions = document.getElementById('playerOptions');
 
-    // Retrieve player data from local storage
+    // Retrieve player data from local storage or initialize it
     const players = JSON.parse(localStorage.getItem('players')) || [
         { id: 1, name: 'Player 1', votes: 0, oddOneOut: false },
         { id: 2, name: 'Player 2', votes: 0, oddOneOut: false },
@@ -55,19 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 result.textContent += `. All players have voted.`;
                 votingForm.querySelector('button[type="submit"]').disabled = true;
-                //change page to leaderboard 
-                window.location.href = '/leaderboard.html';
 
-                // Determine the player with the most votes
-                const oddOneOut = players.reduce((prev, current) => (prev.votes > current.votes) ? prev : current);
-                result.textContent += ` ${oddOneOut.name} has been voted as the odd one out.`;
+                // Save updated player data back to local storage
+                localStorage.setItem('players', JSON.stringify(players));
+
+                // Redirect to leaderboard
+                window.location.href = '/leaderboard.html';
             }
 
             // Clear the selected radio button
             selectedPlayer.checked = false;
-
-            // Save updated player data back to local storage
-            localStorage.setItem('players', JSON.stringify(players));
         } else {
             result.textContent = 'Please select a player to vote for.';
         }

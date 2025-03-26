@@ -1,76 +1,31 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="script" href="./javascript/leaderboard.js">
+    <title>Leaderboard</title>
     <link rel="stylesheet" href="./css/leaderboard.css">
+    <link rel="stylesheet" href="./css/menu.css">
     <link rel="stylesheet" href="./css/background.css">
-    <link rel="stylesheet" href="./css/main.css">
-
-
-    <script src="voting.js"></script>
+    <script src="./javascript/menu.js"></script>
+    <script src="./javascript/leaderboard.js" defer></script>
 </head>
 <body>
-    <div class="background">
-    <h1 id="leaderboard-label">Leaderboard</h1>
-
+    <div class="background"></div> 
+    <h1>Leaderboard</h1>
     <div class="leaderboard-container">
-
-        <div class="leaderboard" id="position1">
-            <div class="position-text" id="position-text1">1. Name</div>
-            <div class="points-text">x votes</div>
-        </div>
-
-        <div class="leaderboard" id="position2">
-            <div class="position-text" id="position-text2">2. Name</div>
-            <div class="points-text">x votes</div>
-        </div>
-
-        <div class="leaderboard" id="position3">
-            <div class="position-text" id="position-text3">3. Name</div>
-            <div class="points-text">x votes</div>
-        </div>
-
-        <div class="leaderboard" id="position4">
-            <div class="position-text" id="position-text4">4. Name</div>
-            <div class="points-text">x votes</div>
-        </div>
-
-        <div class="leaderboard" id="position5">
-            <div class="position-text" id="position-text5">5. Name</div>
-            <div class="points-text">x votes</div>
-        </div>
-
-        <div class="leaderboard" id="position6">
-            <div class="position-text" id="position-text6">6. Name</div>
-            <div class="points-text">x votes</div>
-        </div>
-
-        <div class="leaderboard" id="position7">
-            <div class="position-text" id="position-text7">7. Name</div>
-            <div class="points-text">x votes</div>
-        </div>
-
-        <div class="leaderboard" id="position8">
-            <div class="position-text" id="position-text8">8. Name</div>
-            <div class="points-text">x votes</div>
-        </div>
-
-        <button onclick="window.location.href='test.html';" id="next-btn">Next</button>
+        <!-- Leaderboard will be dynamically populated here -->
     </div>
-</div>
 
-<!-- Menu -->
-<div id="menuContainer"></div>
-<script>
-    fetch("menu.html")
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("menuContainer").innerHTML = html;
-        });
-</script>
-<script src="./javascript/menu.js"></script>
-
+    <!-- Menu -->
+    <div id="menuContainer"></div>
+    <script>
+        fetch("menu.html")
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("menuContainer").innerHTML = html;
+            });
+    </script>
+    <script src="./javascript/menu.js"></script>
 </body>
 </html>
