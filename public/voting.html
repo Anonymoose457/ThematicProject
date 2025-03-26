@@ -6,6 +6,7 @@
     <title>Player Voting</title>
     <link rel="stylesheet" href="./css/background.css">
     <link rel="stylesheet" href="./css/voting.css">
+    <link rel="stylesheet" href="./css/menu.css" /> 
     <script src="./javascript/voting.js" defer></script>
 </head>
 <body>
@@ -17,5 +18,15 @@
         <button type="submit">Submit Vote</button>
     </form>
     <p id="result"></p>
+    <!-- Menu -->
+    <div id="menuContainer"></div>
+    <script>
+        fetch("menu.html")
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById("menuContainer").innerHTML = html;
+            });
+    </script>
+    <script src="./javascript/menu.js"></script>
 </body>
 </html>
