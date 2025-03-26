@@ -17,3 +17,7 @@ function closeSubMenu() {
         submenu.classList.remove("active");
     });
 }
+
+function clearStorage(){
+    localStorage.clear();
+}

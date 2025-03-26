@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
             userName.textContent = "";
         }
         else{
-            window.location.href='main.html';
+            window.location.href='categories.html';
         }
     }
 
