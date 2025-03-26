@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/leaderboard.css">
     <link rel="stylesheet" href="./css/menu.css">
     <link rel="stylesheet" href="./css/background.css">
     <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/menu.css">
-
-
-    <script src="voting.js"></script>
+    <script src="./javascript/leaderboard.js" defer></script>
 </head>
 <body>
     <div class="background"></div> 
-    <h1>Leaderboard</h1>
+    <h1 class="leaderboard-header">Leaderboard</h1>
     <div class="leaderboard-container">
         <!-- Leaderboard will be dynamically populated here -->
+    </div>
+
+    <!-- Next Button -->
+    <div class="next-button-container">
+        <button id="nextButton">Next</button>
     </div>
 
     <!-- Menu -->
@@ -28,6 +32,16 @@
             .then(html => {
                 document.getElementById("menuContainer").innerHTML = html;
             });
+
+        // Add functionality to clear localStorage and redirect to name.html
+        document.getElementById('nextButton').addEventListener('click', () => {
+            const playerNames = localStorage.getItem('playerNames'); // Save playerNames
+            localStorage.clear(); // Clear all localStorage data
+            if (playerNames) {
+                localStorage.setItem('playerNames', playerNames); // Restore playerNames
+            }
+            window.location.href = 'categories.html'; 
+        });
     </script>
     <script src="./javascript/menu.js"></script>
 </body>

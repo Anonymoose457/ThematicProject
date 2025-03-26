@@ -1,24 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
     const leaderboardContainer = document.querySelector('.leaderboard-container');
 
-    // Retrieve player data from localStorage
-    let players = JSON.parse(localStorage.getItem('players'));
+    // Retrieve voteCount data from localStorage
+    let voteCount = JSON.parse(localStorage.getItem('voteCount'));
 
-    // Check if players exist in localStorage
-    if (!players) {
-        console.error('No players found in localStorage.');
-        leaderboardContainer.innerHTML = '<p>No players found. Please complete the voting first.</p>';
+    // Check if voteCount exists in localStorage
+    if (!voteCount || voteCount.length === 0) {
+        console.error('No vote data found in localStorage.');
+        leaderboardContainer.innerHTML = '<p>No votes found. Please complete the voting first.</p>';
         return;
     }
 
     // Sort players by votes in descending order
-    players.sort((a, b) => b.votes - a.votes);
+    voteCount.sort((a, b) => b.votes - a.votes);
 
     // Clear the leaderboard container
     leaderboardContainer.innerHTML = '';
 
     // Populate the leaderboard
-    players.forEach((player, index) => {
+    voteCount.forEach((player, index) => {
         const positionDiv = document.createElement('div');
         positionDiv.classList.add('leaderboard');
         positionDiv.id = `position${index + 1}`;
