@@ -4,6 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Retrieve voteCount data from localStorage
     let voteCount = JSON.parse(localStorage.getItem('voteCount'));
 
+    // Retrieve the odd one out name from localStorage
+    const playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
+    const oddOneIndex = JSON.parse(localStorage.getItem('oddOneIndex'));
+    const oddOneName = playerNames[oddOneIndex]; // Get the odd one out's name
+
     // Check if voteCount exists in localStorage
     if (!voteCount || voteCount.length === 0) {
         console.error('No vote data found in localStorage.');
@@ -26,7 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const positionText = document.createElement('div');
         positionText.classList.add('position-text');
         positionText.id = `position-text${index + 1}`;
-        positionText.textContent = `${index + 1}. ${player.name}`;
+
+        // Add "odd one out" next to the odd one out's name
+        if (player.name === oddOneName) {
+            positionText.textContent = `${index + 1}. ${player.name} - odd one out`;
+        } else {
+            positionText.textContent = `${index + 1}. ${player.name}`;
+        }
 
         const pointsText = document.createElement('div');
         pointsText.classList.add('points-text');

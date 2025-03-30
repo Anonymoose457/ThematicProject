@@ -4,9 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const notOddOneMessage = document.getElementById('notOddOneMessage');
     const nextButton = document.getElementById('nextButton');
 
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     // Retrieve player names from localStorage
     const playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
-    const oddOneIndex = JSON.parse(localStorage.getItem('oddOneIndex')) || Math.floor(Math.random() * playerNames.length);
+    const oddOneIndex = JSON.parse(localStorage.getItem('oddOneIndex')) || getRandomInt(0, playerNames.length - 1);
 
     // Save the odd one index to localStorage if not already saved
     if (!localStorage.getItem('oddOneIndex')) {

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const result = document.getElementById('result');
     const currentPlayerInput = document.getElementById('currentPlayer');
     const playerOptions = document.getElementById('playerOptions');
+    const currentPlayerNameElement = document.getElementById('currentPlayerName');
 
     // Retrieve player names from localStorage
     const playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
@@ -14,6 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
 
     const totalPlayers = playerNames.length;
+
+    // Function to update the current player's name
+    function updateCurrentPlayerName() {
+        const currentPlayerIndex = parseInt(currentPlayerInput.value) - 1;
+        if (currentPlayerIndex >= 0 && currentPlayerIndex < playerNames.length) {
+            currentPlayerNameElement.textContent = `${playerNames[currentPlayerIndex]}'s Turn to Vote`;
+        }
+    }
 
     // Dynamically generate player voting options
     playerNames.forEach(playerName => {
@@ -50,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (currentPlayer < totalPlayers) {
                 currentPlayerInput.value = currentPlayer + 1;
+                updateCurrentPlayerName(); // Update the current player's name
                 result.textContent += `. Next is ${playerNames[currentPlayer]}`;
             } else {
                 result.textContent += `. All players have voted.`;
@@ -68,4 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             result.textContent = 'Please select a player to vote for.';
         }
     });
+
+    // Initialize the current player's name
+    updateCurrentPlayerName();
 });

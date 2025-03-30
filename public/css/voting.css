@@ -12,6 +12,13 @@ form {
     text-align: center;
 }
 
+h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 10px;
+    color: #333;
+}
+
 label {
     display: inline-block;
     margin: 10px;
