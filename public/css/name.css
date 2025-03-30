@@ -1,5 +1,6 @@
 body{
     margin: 0;
+    text-align: center;
     background-color:#118ed6 ;
 }
 
@@ -11,7 +12,7 @@ body{
 #form-container{
     display: flex;
     justify-content: center;
-    position: relative;
+
 }
 
 /*WHERE NAMES WILL BE DISPLAYED*/
@@ -41,10 +42,13 @@ body{
 #placeholder8{visibility: hidden;}
 
 
+
+
 #name-label{
-    font-family: Darumadrop;
+    font-family: 'Darumadrop';
     font-size: 60px;
     color: white;
+    
 }
 
 .name-input{
@@ -52,58 +56,58 @@ body{
     justify-content: center;
 
     position: relative;
-    left: 100px;
-    right: 100px;
-    margin: 20px 0;
 
-    border: none;
+    margin: 50% 0 5px;
+    
+    border-style: initial;
     border-radius: 5px;
     width: 500px;
     height: 80px;
 }
 
 .name-input::placeholder{
-    font-family: Darumadrop;
+    font-family: 'Darumadrop';
     font-size: 25px;
+
 }
 
 input[type="text"]{
     font-size: 25px;
-    font-family: Darumadrop;
+    font-family: 'Darumadrop';
 }
 
 #name-btn{
+    font-family: 'Poppins';
+    color: white;
     text-align: center;
     font-size:15px;
 
-    position: relative;    
-    left: 250px;
-
-    width: 200px;
+    width: 503px;
     height: 50px;
     
-    margin-top: 15px;
-
-    border: 5px white solid;
-    border-radius: 10px;
+    margin-top: 10px;
+    background-color: black;
+    border-radius: 3px;
+    border: none;
 
     cursor: pointer;
 }
+
 
 #play-btn{
     text-align: center;
     font-size:15px;
 
-    position: relative;
-    left: 43%;
-
     width: 200px;
     height: 50px;
 
 
-    border: 5px white solid;
-    border-radius: 10px;
+    border: none;
+    border-radius: 3px;
 
+    font-family: 'Poppins';
+    color: white;
+    background-color: black;
 
     cursor: pointer;
 }
@@ -126,7 +130,7 @@ input[type="text"]{
 #error-msg{
     position: relative;
     top: 8px;
-    font-family: Satoshi;
+    font-family: 'Satoshi';
     margin: 0;
     
     font-size: 20px;

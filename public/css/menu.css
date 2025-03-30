@@ -1,4 +1,7 @@
 /* Settings Icon */
+
+
+
 .menu-icon {
     position: fixed;
     top: 20px;
@@ -41,6 +44,8 @@
 }
 
 .menu-column h2 {
+
+    font-family: 'Arial', sans-serif;
     font-size: 2.5rem;
     text-align: center;
     font-weight: bold;
@@ -61,6 +66,7 @@
 .menu-column ul li a {
     color: white;
     text-decoration: none;
+    font-family: 'Arial', sans-serif;
     font-size: 1.5rem;
     font-weight: bold;
     display: block;
@@ -95,6 +101,7 @@
 }
 
 .submenu-column h2 {
+    font-family: 'Arial', sans-serif;
     font-size: 2rem;
     text-align: center;
     font-weight: bold;
@@ -102,6 +109,7 @@
 }
 
 .submenu-column p {
+    font-family: 'Arial', sans-serif;
     font-size: 1.2rem;
 }
 
@@ -111,6 +119,7 @@
     border: 2px solid rgba(255, 255, 255, 0.8);
     color: white;
     padding: 10px 20px;
+    font-family: 'Arial', sans-serif;
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.3s ease;
