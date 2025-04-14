@@ -4,12 +4,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const notOddOneMessage = document.getElementById('notOddOneMessage');
     const nextButton = document.getElementById('nextButton');
 
+    let itemRef;
+    if (selectedCategory === "FOODS") {
+        itemRef = collection(db, 'foodQuestions');
+    } else if (selectedCategory === "ANIMALS") {
+        itemRef = collection(db, 'animalQuestions');
+    } else if (selectedCategory === "PLACES") {
+        itemRef = collection(db, 'locationQuestions');
+    } else {
+        itemRef = collection(db, 'foodQuestions'); // Default to foodQuestions
+    }
+
+    
+
     function getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    async function getItemFromFirestore(itemID) {
+        const q = query(itemRef, where("itemID", "==", itemID));
+        const querySnapshot = await getDocs(q);
+
+        let item = null;
+        querySnapshot.forEach((doc) => {
+            item = doc.data(); // Retrieve the document data
+        });
+
+        return item;
+    }
+
+
+    let itemID = getRandomInt(1,7);
+    //Get the itemRef from firestore with the itemID
+   getItemFromFirestore(itemID);
     // Retrieve player names from localStorage
     const playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
     const oddOneIndex = JSON.parse(localStorage.getItem('oddOneIndex')) || getRandomInt(0, playerNames.length - 1);

@@ -18,8 +18,21 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+const selectedCategory = localStorage.getItem('selectedCategory');
+let questionRef;
+if(selectedCategory == "FOODS") {
+    questionRef = collection(db, 'foodQuestions');
 
-const foodQRef = collection(db, 'foodQuestions');
+}
+else if(selectedCategory == "ANIMALS") {
+    questionRef = collection(db, 'animalQuestions');
+}
+else if(selectedCategory == "PLACES") {
+    questionRef = collection(db, 'locationQuestions');
+}
+else if(selectedCategory == null){
+    questionRef = collection(db, 'foodQuestions');
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     const nameDisplay = document.getElementById('nameDisplay');
@@ -94,7 +107,7 @@ class Question {
 
 const getQuestionFromFirestore = async (questionID) => {
     let returnQuestion = null;
-    const querySnapshot = await getDocs(foodQRef);
+    const querySnapshot = await getDocs(questionRef);
     querySnapshot.forEach((doc) => {
         if (doc.data().questionID == questionID) { // Check the question ID in the database matches the question ID queried 
             returnQuestion = questionConverter.fromFirestore(doc);
