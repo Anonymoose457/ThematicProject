@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
-import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCalEYFS7-ROFSBgkdipILYTMPfesCkx1A",
@@ -30,46 +30,53 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     let itemRef;
     if (selectedCategory === "FOODS") {
-        itemRef = collection(db, 'foodQuestions');
+        itemRef = collection(db, 'foodItems');
     } else if (selectedCategory === "ANIMALS") {
-        itemRef = collection(db, 'animalQuestions');
+        itemRef = collection(db, 'animalItems');
     } else if (selectedCategory === "PLACES") {
-        itemRef = collection(db, 'locationQuestions');
+        itemRef = collection(db, 'locationItems');
     } else {
-        itemRef = collection(db, 'foodQuestions'); // Default to foodQuestions
+        itemRef = collection(db, 'foodItems'); // Default to foodItems
     }
 
-    async function countItemsInCollection() {
+    // Load items from Firestore into localStorage
+    async function loadItemsIntoLocalStorage() {
         const querySnapshot = await getDocs(itemRef);
-        return querySnapshot.size; // Returns the number of documents in the collection
-    }
-
-    async function getItemFromFirestore(itemID) {
-        const q = query(itemRef, where("itemID", "==", itemID));
-        const querySnapshot = await getDocs(q);
-
-        let item = null;
+        const items = [];
         querySnapshot.forEach((doc) => {
-            item = doc.data(); // Retrieve the document data
+            items.push(doc.data()); // Add each document's data to the array
         });
 
-        return item;
+        // Save items to localStorage
+        localStorage.setItem('gameItems', JSON.stringify(items));
+        console.log('Items loaded into localStorage:', items);
     }
 
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+    // Function to get a random item from localStorage
+    function getRandomItemFromLocalStorage() {
+        const items = JSON.parse(localStorage.getItem('gameItems')) || [];
+        if (items.length === 0) {
+            return null; // No items available
+        }
+        const randomIndex = Math.floor(Math.random() * items.length);
+        return items[randomIndex];
     }
 
+    // Load items into localStorage at the start of the game
+    if (!localStorage.getItem('gameItems')) {
+        await loadItemsIntoLocalStorage();
+    }
+
+    // Retrieve player names from localStorage
     const playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
-    const oddOneIndex = JSON.parse(localStorage.getItem('oddOneIndex')) || getRandomInt(0, playerNames.length - 1);
+    const oddOneIndex = JSON.parse(localStorage.getItem('oddOneIndex')) || Math.floor(Math.random() * playerNames.length);
 
     if (!localStorage.getItem('oddOneIndex')) {
         localStorage.setItem('oddOneIndex', JSON.stringify(oddOneIndex));
     }
 
     let currentIndex = 0;
+    let currentItem = null; // Store the current item for the round
 
     function updateContent() {
         oddOneMessage.style.display = 'none';
@@ -77,8 +84,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         itemDisplay.style.display = 'none';
 
         if (currentIndex < playerNames.length) {
-            playerNameElement.textContent = playerNames[currentIndex];
+            // Update the player's name from the playerNames array
+            playerNameElement.textContent = `${playerNames[currentIndex]}'s Turn`;
             nextButton.textContent = 'Reveal';
+
+            // Select a random item for the round if not already selected
+            if (!currentItem) {
+                currentItem = getRandomItemFromLocalStorage();
+            }
         } else {
             window.location.href = 'questions.html';
         }
@@ -92,10 +105,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             } else {
                 notOddOneMessage.style.display = 'block';
 
-                const randomItemID = getRandomInt(1, await countItemsInCollection());
-                const item = await getItemFromFirestore(randomItemID);
-                if (item && item.questionText) {
-                    itemDisplay.textContent = `Question: ${item.questionText}`;
+                // Display the current item for the round
+                if (currentItem && currentItem.lang_en) {
+                    itemDisplay.textContent = `Item: ${currentItem.lang_en}`;
                     itemDisplay.style.display = 'block';
                 } else {
                     itemDisplay.textContent = 'No item found.';
@@ -105,6 +117,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             nextButton.textContent = 'Next';
         } else {
             currentIndex++;
+            if (currentIndex === playerNames.length) {
+                currentItem = null; // Reset the item for the next round
+            }
             updateContent();
         }
     });
