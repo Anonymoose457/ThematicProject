@@ -1,8 +1,28 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCalEYFS7-ROFSBgkdipILYTMPfesCkx1A",
+    authDomain: "oddoneout-98e8e.firebaseapp.com",
+    projectId: "oddoneout-98e8e",
+    storageBucket: "oddoneout-98e8e.firebasestorage.app",
+    messagingSenderId: "433401228455",
+    appId: "1:433401228455:web:4588e20befa1f8f0243f82",
+    measurementId: "G-74CCK0P86Y"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+  
+
 document.addEventListener('DOMContentLoaded', () => {
     const playerNameElement = document.getElementById('playerName');
     const oddOneMessage = document.getElementById('oddOneMessage');
     const notOddOneMessage = document.getElementById('notOddOneMessage');
     const nextButton = document.getElementById('nextButton');
+    const selectedCategory = localStorage.getItem('selectedCategory');
 
     let itemRef;
     if (selectedCategory === "FOODS") {
@@ -15,9 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
         itemRef = collection(db, 'foodQuestions'); // Default to foodQuestions
     }
 
-    
+    async function countItemsInCollection() {
+        const querySnapshot = await getDocs(itemRef);
+        return querySnapshot.size; // Returns the number of documents in the collection
+    }
 
-    function getRandomInt(min, max) {
+    function getRandomInt() {
+        min = 1;
+        max = countItemsInCollection();
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -36,9 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    let itemID = getRandomInt(1,7);
-    //Get the itemRef from firestore with the itemID
-   getItemFromFirestore(itemID);
+    let itemID = getRandomInt();
+    //Get the itemRef from firestore with the itemID using the length of the collection
+    let itemName = getItemFromFirestore(itemID);
     // Retrieve player names from localStorage
     const playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
     const oddOneIndex = JSON.parse(localStorage.getItem('oddOneIndex')) || getRandomInt(0, playerNames.length - 1);
@@ -72,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 oddOneMessage.style.display = 'block';
             } else {
                 notOddOneMessage.style.display = 'block';
+                
             }
             nextButton.textContent = 'Next';
         } else {
