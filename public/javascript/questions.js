@@ -8,7 +8,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCalEYFS7-ROFSBgkdipILYTMPfesCkx1A",
   authDomain: "oddoneout-98e8e.firebaseapp.com",
   projectId: "oddoneout-98e8e",
-  storageBucket: "oddoneout-98e8e.firebasestorage.app",
+  storageBucket: "oddoneout-98e8e.firebaseapp.com",
   messagingSenderId: "433401228455",
   appId: "1:433401228455:web:4588e20befa1f8f0243f82",
   measurementId: "G-74CCK0P86Y"
@@ -18,21 +18,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+
 const selectedCategory = localStorage.getItem('selectedCategory');
 let questionRef;
-if(selectedCategory == "FOODS") {
-    questionRef = collection(db, 'foodQuestions');
 
-}
-else if(selectedCategory == "ANIMALS") {
-    questionRef = collection(db, 'animalQuestions');
-}
-else if(selectedCategory == "PLACES") {
-    questionRef = collection(db, 'locationQuestions');
-}
-else if(selectedCategory == null){
+if (selectedCategory === "FOODS") {
     questionRef = collection(db, 'foodQuestions');
+} else if (selectedCategory === "ANIMALS") {
+    questionRef = collection(db, 'animalQuestions');
+} else if (selectedCategory === "PLACES") {
+    questionRef = collection(db, 'locationQuestions');
+} else {
+    questionRef = collection(db, 'foodQuestions'); // Default
 }
+
+// ✅ Global variable to hold the currently displayed question
+let currentQuestion = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
     const nameDisplay = document.getElementById('nameDisplay');
@@ -49,8 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (currentIndex >= totalNames) {
             window.location.href = '/voting.html';
             nameDisplay.textContent = 'EVERYONE ASKED';
-            const question = "";
-            questionDisplay.textContent = question; 
+            questionDisplay.textContent = ""; 
             nextButton.disabled = true;
             return;
         }
@@ -64,18 +64,36 @@ document.addEventListener('DOMContentLoaded', async () => {
         const asker = names[currentIndex];
         const askee = names[(currentIndex + 1) % totalNames];
         const questionID = getRandomInt(1, 7);
+
         let foodquestion = await getQuestionFromFirestore(questionID);
 
-        if (localStorage.getItem('lang') === 'spanish') {
-            const question = foodquestion.spanishQuestion;
-            questionDisplay.textContent = question;
+        // ✅ Save to global variable
+        currentQuestion = foodquestion;
+
+        // ✅ Display based on language setting
+        const lang = localStorage.getItem('lang');
+        if (lang === 'spanish') {
+            questionDisplay.textContent = foodquestion.spanishQuestion;
         } else {
-            const question = foodquestion.englishQuestion;
-            questionDisplay.textContent = question;
+            questionDisplay.textContent = foodquestion.englishQuestion;
         }
 
         nameDisplay.textContent = `${asker} ask ${askee}`;
     }
+
+    // ✅ Update the question without progressing if language changes
+    window.updateLanguageOnScreen = function () {
+        const questionDisplay = document.getElementById('questionDisplay');
+        const lang = localStorage.getItem('lang');
+
+        if (!currentQuestion || !questionDisplay) return;
+
+        if (lang === 'spanish') {
+            questionDisplay.textContent = currentQuestion.spanishQuestion;
+        } else {
+            questionDisplay.textContent = currentQuestion.englishQuestion;
+        }
+    };
 
     nextButton.addEventListener('click', () => {
         currentIndex++;
@@ -109,7 +127,7 @@ const getQuestionFromFirestore = async (questionID) => {
     let returnQuestion = null;
     const querySnapshot = await getDocs(questionRef);
     querySnapshot.forEach((doc) => {
-        if (doc.data().questionID == questionID) { // Check the question ID in the database matches the question ID queried 
+        if (doc.data().questionID == questionID) {
             returnQuestion = questionConverter.fromFirestore(doc);
         }
     });

@@ -52,6 +52,7 @@
     text-transform: uppercase;
     letter-spacing: 3px;
     animation: fadeIn 0.8s;
+    margin-bottom: 60px;
 }
 
 .menu-column ul {
@@ -60,8 +61,13 @@
 }
 
 .menu-column ul li {
-    margin: 30px 0;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    display: flex;
+    justify-content: center;
+    
 }
+
 
 .menu-column ul li a {
     color: white;
@@ -138,3 +144,66 @@
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* Style for How to Play instructions */
+#howToPlay ol {
+    margin-top: 10px;
+    padding-left: 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+#howToPlay ol li {
+    margin-bottom: 12px;
+    padding-left: 5px;
+}
+
+#howToPlay p:first-of-type {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#howToPlay p:last-of-type {
+    font-style: italic;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 15px;
+    color: #dddddd;
+}
+
+#howToPlay strong {
+    color: #ffcc70;
+}
+
+#howToPlay h2 {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #ffffff;
+  }
+  
+  .howto-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+ 
+  .howto-step p {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    max-width: 240px;
+    
+  }
+  

@@ -10,23 +10,53 @@
         <li><a href="#" onclick="showSubMenu('howToPlay')">How to play ?</a></li>
         <li><a href="#" onclick="showSubMenu('language')">Language</a></li>
         <li><a href="#" onclick="showSubMenu('newGame')">New Game</a></li>
-        <li><a href="#" onclick="showSubMenu('soundOff')">Sound Off</a></li>
+        <li><a id="soundToggle" onclick="toggleSound()" style="cursor: pointer;">Sound Off</a></li>
         <li><a href="#" onclick="showSubMenu('privacyPage')">Privacy Page</a></li>
     </ul>
 </div>
 
 <!-- Submenu Overlays -->
 <div class="submenu-column" id="howToPlay">
-    <h2>How to Play</h2>
-    <p>Instructions on how to play the game will appear here.</p>
+    <h2>- HOW TO PLAY -</h2>
+  
+    <div class="howto-step">
+      <h3>👁️ Every player sees the secret word</h3>
+      <p>Except for one player—they're the Odd One Out and don’t know the word!</p>
+    </div>
+  
+    <div class="howto-step">
+      <h3>❓ One player is left in the dark</h3>
+      <p>They must blend in by answering questions without knowing the word.</p>
+    </div>
+  
+    <div class="howto-step">
+      <h3>💬 Ask & Answer</h3>
+      <p>Each player asks a question to another player, who must answer honestly.</p>
+    </div>
+  
+    <div class="howto-step">
+      <h3>🗳️ Vote Time</h3>
+      <p>At the end, vote on who you think the Odd One Out was.</p>
+    </div>
+  
+    <div class="howto-step">
+      <h3>🏆 Reveal & Score</h3>
+      <p>The game reveals the Odd One Out and tallies scores based on correct guesses and trickery!</p>
+    </div>
+  
     <button onclick="closeSubMenu()">Back</button>
-</div>
+  </div>
+  
+
 
 <div class="submenu-column" id="language">
     <h2>Language</h2>
     <p>Select your preferred language.</p>
+    <button onclick="setLanguage('english')">English</button>
+    <button onclick="setLanguage('spanish')">Spanish</button>
     <button onclick="closeSubMenu()">Back</button>
 </div>
+
 
 <div class="submenu-column" id="newGame">
     <h2>New Game</h2>
@@ -39,12 +69,11 @@
     <button onclick="closeSubMenu()">Back</button>
 </div>
 
+<audio id="menuSound" src="./sounds/menusound.wav" preload="auto"></audio>
 
-<div class="submenu-column" id="soundOff">
-    <h2>Sound Off</h2>
-    <p>Toggle sound on or off.</p>
-    <button onclick="closeSubMenu()">Back</button>
-</div>
+
+
+
 
 <div class="submenu-column" id="privacyPage">
     <h2>Privacy Page</h2>
